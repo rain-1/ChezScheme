@@ -170,7 +170,7 @@ report-$(conf): errors-$(conf)
 
 doreport: experr-$(conf)
 	rm -f report-$(conf)
-	-diff experr-$(conf) errors-$(conf) > report-$(conf) 2>&1
+	-(diff experr-$(conf) errors-$(conf) || echo -n) > report-$(conf) 2>&1
 
 maybe-doreport:
 	-if [ -f errors-$(conf) ] ; then\
@@ -189,10 +189,10 @@ ifdef MSDOS
 	-(cd $(objdir); grep '^Expected' $(objname)) | dos2unix\
          >> errors-$(conf)
 else
-	-(cd $(objdir); grep '^Error' $(objname)) > errors-$(conf)
-	-(cd $(objdir); grep '^Bug' $(objname)) >> errors-$(conf)
-	-(cd $(objdir); grep '^Warning' $(objname)) >> errors-$(conf)
-	-(cd $(objdir); grep '^Expected' $(objname))\
+	-(cd $(objdir); grep '^Error' $(objname) || echo -n) > errors-$(conf)
+	-(cd $(objdir); grep '^Bug' $(objname) || echo -n) >> errors-$(conf)
+	-(cd $(objdir); grep '^Warning' $(objname) || echo -n) >> errors-$(conf)
+	-(cd $(objdir); grep '^Expected' $(objname) || echo -n)\
          >> errors-$(conf)
 endif
 
