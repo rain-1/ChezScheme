@@ -39,4 +39,4 @@ ${Scheme}: ${Kernel} ${Main}
 
 ${ZlibInclude}/zlib.h ${ZlibInclude}/zconf.h ../zlib/libz.a:
 	(cd ../zlib; CFLAGS=-m64 ./configure --64)
-	(cd ../zlib; make)
+	(cd ../zlib; gmake)
